@@ -5,13 +5,14 @@ var generateBtn = document.querySelector("#generate");
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-
-//  Generate password after all inputs from user
+// Function for random index of array
 function getRandom (array) {
   var randomIndex = Math.floor(Math.random() * array.length);
   var randomCharacter = array[randomIndex];
   return randomCharacter;
-  }
+}
+
+//  Generate password after all inputs from user
 function generatePassword() {
   
   // All character variables
@@ -21,49 +22,49 @@ function generatePassword() {
   var specialCharacters = ['@', '"', '/', '[', ']', '{', '}', '|', '!', '#', '$', '%', '^', '&', '*', '_', '~', '-', '?', '<', '>'];
   
   // Checkbox Variables
-
+  
   var numberCheckbox = document.querySelector("#wantsNumbers");
   var uppercaseCheckbox = document.querySelector("#wantsUppercase");
   var lowercaseCheckbox = document.querySelector("#wantsLowercase");
   var specialCheckbox = document.querySelector("#wantsSpecialCharacters");
   
+  // Array of all Checkboxes
+  var allCheckbox = [numberCheckbox, uppercaseCheckbox, lowercaseCheckbox, specialCheckbox];
+  
+  // Blank variable to collect all of user's inputs
+  var userInput = [];
+  
   // variable for the length of password
   var passwordLength = document.querySelector("#lengthInput").value;
 
-  // Blank variable to collect all of user's inputs
-  var userInput = [];
-
-  console.log(passwordLength);
-  
   // Adding alerts if user input number < 8 or > 128
 
-  if (passwordLength < 8) {
-    alert("Password must be at least 8 characters in length.");
+  if (passwordLength < 8 || passwordLength > 128) {
+    alert("Please input a password length between 8-128 Characters");
     return "";
   }
 
-  if (passwordLength > 128) {
-    alert("Password must not be more than 128 characters in length.");
-    return "";
-  }
 
-  // Function for random index of array
-
-  
   // Adds arrays of characters based on what is checked by user to the userInput variable
+  var yesNumbers = numberCheckbox.checked;
+  var yesUppers = uppercaseCheckbox.checked;
+  var yesLowers = lowercaseCheckbox.checked;
+  var yesSpecials = specialCheckbox.checked;
+  var allChecked = [yesLowers, yesNumbers, yesSpecials, yesUppers];
 
-  if (numberCheckbox.checked) {
+  if (yesNumbers) {
     userInput.push(numbers);
-  }
-  if (uppercaseCheckbox.checked) {
+  } 
+  if (yesUppers) {
     userInput.push(upperLetters);
   }
-  if (lowercaseCheckbox.checked) {
+  if (yesLowers) {
     userInput.push(lowerLetters);
   }
-  if (specialCheckbox.checked) {
+  if (yesSpecials) {
     userInput.push(specialCharacters);
   }
+
   
   console.log(userInput);
   
@@ -78,7 +79,6 @@ function generatePassword() {
   return finalPassword.join('');
   
 }
-
 
 // Write password to the #password input
 function writePassword() {
