@@ -51,7 +51,11 @@ function generatePassword() {
   var yesLowers = lowercaseCheckbox.checked;
   var yesSpecials = specialCheckbox.checked;
   var allChecked = [yesLowers, yesNumbers, yesSpecials, yesUppers];
-
+ 
+  if (!yesNumbers && !yesUppers && !yesLowers && !yesSpecials) {
+    userInput = 0;
+    alert("Please select at least one character type.");
+  }
   if (yesNumbers) {
     userInput.push(numbers);
   } 
@@ -71,10 +75,9 @@ function generatePassword() {
   var finalPassword = [];
  
   for (var i = 0; i < passwordLength; i++) {
-    var arr = userInput[Math.floor(Math.random()*userInput.length)];
+    var arr = userInput[Math.floor(Math.random() * userInput.length)];
     var char = getRandom(arr);
     finalPassword.push(char);
-
   } 
   return finalPassword.join('');
   
